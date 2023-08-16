@@ -2,6 +2,8 @@
 const config = require('../configs/database');
 
 const crypto = require('crypto');
+
+var validator = require('validator');
 // Gunakan library mysql
 let mysql      = require('mysql');
 // Buat koneksi
@@ -24,6 +26,7 @@ module.exports ={
         res.render("register",{
             // Definisikan semua varibel yang ingin ikut dirender kedalam register.ejs
             url : 'http://localhost:5050/',
+            data: '',
         });
     },
     // Fungsi untuk menyimpan data
@@ -33,6 +36,45 @@ module.exports ={
         let password = req.body.pass;
         let hashPass = hashPassword(password);
         let age = req.body.age;
+
+        const usernameCek = validator.isEmail(username);
+
+        const options = {
+            minLength: 6,
+            minUppercase: 1,
+            minNumbers: 1,
+            minSymbols: 0, // Opsi tambahan, bisa disesuaikan
+            returnScore: false // Opsi tambahan, jika ingin mendapatkan skor kekuatan
+        };
+
+        const passCek = validator.isStrongPassword(password, options);
+        const ageCek = validator.isInt(age.toString(), { min: 18 });
+        console.log(passCek);
+        console.log(usernameCek);
+        console.log(ageCek);
+
+        valiGagal = [];
+        if(usernameCek == false || passCek == false || ageCek == false) {
+            if(usernameCek == false) {
+                const push1 = {email: "Email tidak valid"};
+                valiGagal.push(push1);
+            }
+            if(passCek == false) {
+                const push2 = {password: "Password minimal 8 karakter, 1 huruf besar, 1 angka"};
+                valiGagal.push(push2);
+            }
+            if(ageCek == false) {
+                const push3 = {age: "Umur minimal 18 Tahun"};
+                valiGagal.push(push3);
+            }
+                res.render("register",{
+                    url : 'http://localhost:5050/',
+                    // Kirim juga library flash yang telah di set
+                    data: valiGagal,
+                });
+            throw '';
+        }
+
         // Pastikan semua varibel terisi
         if (username && age && password) {
             // Panggil koneksi dan eksekusi query
