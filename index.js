@@ -19,7 +19,7 @@ app.use(bodyParser.json())
 app.use(session({
     resave: false,
     saveUninitialized: false,
-    secret: 't@1k0ch3ng',
+    secret: 'andri',
     name: 'secretName',
     cookie: {
         sameSite: true,
