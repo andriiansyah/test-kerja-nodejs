@@ -64,11 +64,16 @@
     <div class="container">
 
         <h1>Data Result</h1>
-        <ul>
-            <% data.forEach((row) => { %>
-            <li><%= row.username %></li>
-            <% }); %>
-        </ul>
+        <div class="container">
+            <div class="row">
+                <% data.forEach((row) => { %>
+                <div class="col bg-primary">
+                    <h1>Username = <%= row.username %></h1>
+                    <h2>Umur = <%= row.age %></h2>
+                </div>
+                <% }); %>
+            </div>
+        </div>
         <a class="btn btn-danger" href="<%= url %>login/logout">Logout</a>
     </div>
 </body>
