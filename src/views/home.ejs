@@ -65,14 +65,17 @@
 
         <h1>Data Result</h1>
         <div class="container">
-            <div class="row">
-                <% data.forEach((row) => { %>
-                <div class="col bg-primary">
-                    <h1>Username = <%= row.username %></h1>
-                    <h2>Umur = <%= row.age %></h2>
+            <% data.forEach((row) => { %>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Username = <%= row.username %></h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Umur = <%= row.age %></h6>
+                    <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a href="#" class="card-link">Card link</a>
+                    <a href="#" class="card-link">Another link</a> -->
                 </div>
-                <% }); %>
             </div>
+            <% }); %>
         </div>
         <a class="btn btn-danger" href="<%= url %>login/logout">Logout</a>
     </div>
